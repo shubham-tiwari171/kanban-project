@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const kanbanSlice = createSlice({
   name: "kanban",
   initialState: {
-    tasks: [], // Initial tasks array
+    tasks: [],
   },
   reducers: {
     addTask(state, action) {

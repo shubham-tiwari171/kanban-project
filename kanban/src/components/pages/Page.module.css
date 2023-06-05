@@ -1,0 +1,40 @@
+/* Page.module.css */
+
+.header {
+  height: 4rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: brown;
+}
+
+.content {
+  height: 92vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(42, 147, 165);
+}
+
+.inner-content {
+  width: 98%;
+  background-color: azure;
+  margin-top: 1rem;
+  display: flex;
+  overflow-x: scroll;
+  flex-direction: row-reverse;
+  scroll-behavior: smooth scroll;
+}
+
+/* .inner-content::-webkit-scrollbar {
+  display: none;
+} */
+
+.box {
+  margin: 1rem;
+  width: 15rem;
+  height: 15rem;
+  background-color: lightblue;
+  flex-shrink: 0;
+}
