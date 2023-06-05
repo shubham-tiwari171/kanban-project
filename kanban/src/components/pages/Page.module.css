@@ -23,7 +23,6 @@
   margin-top: 1rem;
   display: flex;
   overflow-x: scroll;
-  flex-direction: row-reverse;
   scroll-behavior: smooth scroll;
 }
 
