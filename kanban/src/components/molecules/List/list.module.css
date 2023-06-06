@@ -1,0 +1,58 @@
+body {
+  background: url("https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg");
+}
+.add-list {
+  background-color: #f9f7f6;
+  color: #2b2a2a;
+  width: 12%;
+  position: relative;
+  padding: 0.7rem;
+  border-radius: 10px;
+  margin-top: 10px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.add-icon {
+  fill: #fff;
+  font-weight: 400;
+}
+.add-title {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  bottom: 50px;
+  width: 13%;
+  background-color: black;
+
+  color: white;
+  padding: 0.5rem;
+  z-index: 2;
+  border-radius: 10px;
+}
+.add-input {
+  padding: 5px;
+  outline: none;
+  border-radius: 3px;
+  width: 95%;
+  background-color: #22272b;
+  border: 2px solid #579dff;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+::placeholder {
+  color: #cbc7c7;
+  padding-left: 4px;
+}
+.add-btn {
+  width: 30%;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 5px;
+
+  background-color: #579dff;
+}
+.close-btn {
+  position: relative;
+  top: 10px;
+}
