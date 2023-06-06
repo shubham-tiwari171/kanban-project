@@ -19,7 +19,7 @@
 
 .inner-content {
   width: 98%;
-  background-color: azure;
+  background-color: rgb(73, 217, 217);
   margin-top: 1rem;
   display: flex;
   overflow-x: scroll;

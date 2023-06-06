@@ -1,29 +1,40 @@
-import React, { useState } from "react";
 import { MdAdd, MdOutlineClose } from "react-icons/md";
 import styles from "./list.module.css";
 import Card from "../Card/Card";
+import { useState, useRef, useEffect } from "react";
 
 const List = () => {
   const [isAddTitle, setIsAddTitle] = useState(false);
   const [title, setTitle] = useState("");
   const [isAddList, setIsAddList] = useState(false);
+  const [divisions, setDivisions] = useState([]);
+
+
+  const innerContentRef = useRef(null);
+
+  useEffect(() => {
+    console.log(innerContentRef.current.scrollWidth);
+    console.log(innerContentRef.current.scrollLeft);
+    innerContentRef.current.scrollLeft = innerContentRef.current.scrollWidth;
+  }, [divisions]);
 
   const handleAddList = () => {
-    if (title !== "" && title.length > 2)
-      setIsAddList(!isAddList);
+    setDivisions([...divisions, { title: title }]);
+    setTitle("");
+    setIsAddList(true);
   };
 
   return (
-    <div className={styles.container}>
-      <div onClick={() => setIsAddTitle(!isAddTitle)}>
-        <div className={styles["add-list"]}>
-          <MdAdd className={styles["add-icon"]} /> Add another list
-        </div>
-      </div>
+    <div className={styles["inner-content"]} ref={innerContentRef}>
+
+      {isAddList &&
+        divisions.map((division, index) => (
+          <Card key={index} title={division.title} />
+        ))}
+
       {isAddTitle ? (
         <div className={styles["add-title"]}>
           <div>
-            {" "}
             <input
               placeholder="Enter list title..."
               value={title}
@@ -46,13 +57,12 @@ const List = () => {
       ) : (
         <></>
       )}
-      {isAddList ? (
-        <div className="d-flex justify-content-center">
-          <Card title={title} />
+
+      <div onClick={() => setIsAddTitle(!isAddTitle)}>
+        <div className={styles["add-list"]}>
+          <MdAdd className={styles["add-icon"]} /> Add another list
         </div>
-      ) : (
-        <></>
-      )}
+      </div>
     </div>
   );
 };

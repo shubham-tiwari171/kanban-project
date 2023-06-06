@@ -1,11 +1,10 @@
 .add-Card {
   width: 15%;
-
   background-color: black;
-
+  flex-shrink: 0;
   border-radius: 10px;
   margin-left: 5px;
-  min-height: 130px;
+  min-height: 130px !important;
 }
 /* will see later */
 .add-list:hover {
@@ -56,7 +55,6 @@ textarea {
 .add-title {
   display: flex;
   flex-direction: column;
-
   bottom: 50px;
   width: 80%;
   background-color: black;
