@@ -4,14 +4,16 @@ import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
-import { MdModeEdit } from "react-icons/md";
+import { MdDescription } from "react-icons/md";
 import styles from "./card.module.css";
-
+import { useNavigate } from "react-router";
 const Card = ({ title, cardId }) => {
   const [isAddTitle, setIsAddTitle] = useState(false);
   const [addTitle, setAddTitle] = useState("");
   const [tasks, setTasks] = useState([]);
-
+  const [editedTaskName, setEditedTaskName] = useState('')
+  const [particularTaskId, setParticularTaskId] = useState(false)
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchTasks = async () => {
       try {
@@ -25,13 +27,15 @@ const Card = ({ title, cardId }) => {
     fetchTasks();
   }, []);
 
-  const handleAddTask = async () => {
+  const handleAddUpdateTask = async () => {
     if (addTitle.trim() !== "") {
       const newTask = {
         id: uuidv4(),
-        taskName: addTitle,
+        taskName: editedTaskName !== "" ? editedTaskName : addTitle,
         taskDescription: 'jhhjgjhgjgghjgjhhg',
       };
+
+      // Updating the particular tsak array
       const updatedTasks = tasks.map((task) => {
         if (task.id === cardId) {
           return {
@@ -41,6 +45,7 @@ const Card = ({ title, cardId }) => {
         }
         return task;
       });
+
       try {
         // Find the index of the task object that has changed
         const changedTaskIndex = updatedTasks.findIndex((task) => task.id === cardId);
@@ -54,7 +59,6 @@ const Card = ({ title, cardId }) => {
           updatedState[changedTaskIndex] = updatedTasks[changedTaskIndex];
           return updatedState;
         });
-        console.log(tasks)
         setAddTitle("");
         setIsAddTitle(false);
       } catch (error) {
@@ -62,8 +66,15 @@ const Card = ({ title, cardId }) => {
       }
     }
   };
+
   const filteredTasks = tasks.find((task) => task.id === cardId)?.task || [];
-  console.log(filteredTasks)
+
+  const handleRouteClick = (taskId) => {
+    let particularTaskObj = filteredTasks.find((task) => task.id === taskId);
+    navigate(`/description/${taskId}`);
+    console.log(particularTaskObj)
+  }
+
   return (
     <div className={styles["add-Card"]}>
       <div className={styles["title-more-icon"]}>
@@ -77,7 +88,7 @@ const Card = ({ title, cardId }) => {
           <div key={subTask.id} className={styles["task-item"]}>
             <span style={{ marginLeft: "1rem" }}>{subTask.taskName}</span>
             {/* <span>{subTask.taskDescription}</span> */}
-            <span style={{ marginRight: "1rem" }}><MdModeEdit /></span>
+            <span style={{ marginRight: "1rem" }}><MdDescription size={20} onClick={() => handleRouteClick(subTask.id)} /></span>
           </div>
         ))}
       </div>
@@ -90,7 +101,7 @@ const Card = ({ title, cardId }) => {
                 placeholder="Enter a title for this card..."
                 style={{ minHeight: '300px', overflow: 'hidden' }}
                 className={styles["add-input"]}
-                value={addTitle}
+                value={editedTaskName != "" ? editedTaskName : addTitle}
                 onChange={(e) => setAddTitle(e.target.value)}
               />
             </FloatingLabel>
@@ -99,10 +110,12 @@ const Card = ({ title, cardId }) => {
           <div>
             <button
               className={styles["add-btn"]}
-              onClick={handleAddTask}
+              onClick={handleAddUpdateTask}
             >
-              Add Task
+              Add task
+
             </button>
+
             <span onClick={() => setIsAddTitle(false)}>
               <MdClose size={25} className={styles["close-btn"]} />
             </span>
