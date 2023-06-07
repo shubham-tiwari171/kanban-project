@@ -1,19 +1,46 @@
 {
-  "posts": [
+  "cards": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
+      "id": "df29a653-04b5-41c5-ba11-4654ad0ca415",
+      "title": "todo",
+      "task": [
+        {
+          "id": "b7ef7e3d-12dc-4720-a487-58a019763481",
+          "taskName": "asd",
+          "taskDescription": "jhhjgjhgjgghjgjhhg"
+        },
+        {
+          "id": "2878892e-1415-46d9-a983-0fd006e5d8e3",
+          "taskName": "asd",
+          "taskDescription": "jhhjgjhgjgghjgjhhg"
+        },
+        {
+          "id": "9e9927f0-791d-4b67-ba48-92660f64a399",
+          "taskName": "sdad",
+          "taskDescription": "jhhjgjhgjgghjgjhhg"
+        },
+        {
+          "id": "bd1ff6a0-3bf8-4f97-908b-76935825525d",
+          "taskName": "sadasd",
+          "taskDescription": "jhhjgjhgjgghjgjhhg"
+        }
+      ]
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "id": "6d637784-b5e8-47d8-a937-b8e373663d5a",
+      "title": "sadas",
+      "task": [
+        {
+          "id": "4de6e2ea-97c0-4807-b46f-1da8f8aa8558",
+          "taskName": "asdad",
+          "taskDescription": "jhhjgjhgjgghjgjhhg"
+        },
+        {
+          "id": "3aafb2d0-68a4-40be-9fd8-d76ecac66501",
+          "taskName": "shubham ",
+          "taskDescription": "jhhjgjhgjgghjgjhhg"
+        }
+      ]
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }

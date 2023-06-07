@@ -1,11 +1,13 @@
 .add-Card {
   width: 15%;
+  height: fit-content; /* Set the desired height here */
   background-color: black;
   flex-shrink: 0;
   border-radius: 10px;
   margin-left: 5px;
   min-height: 130px !important;
 }
+
 /* will see later */
 .add-list:hover {
   background-color: white;
@@ -105,4 +107,22 @@ textarea {
   position: relative;
   top: 10px;
   border-radius: 5px;
+}
+.task-item {
+  color: white;
+  margin-bottom: 0.5rem;
+  border: 1px solid red;
+  background-color: #414243;
+  height: 2.5rem;
+  width: 90%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.task-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
