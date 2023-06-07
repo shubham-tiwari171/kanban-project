@@ -35,7 +35,6 @@
   display: flex;
   justify-content: space-between;
   padding: 1rem;
-  position: relative;
 }
 .add-text {
   margin-left: 0.5rem;
@@ -54,6 +53,7 @@ textarea {
   color: rgb(244, 237, 237);
 }
 .more-icon {
+  cursor: pointer;
   fill: #fff;
 }
 
@@ -132,5 +132,8 @@ textarea {
 }
 .delete-icon {
   color: white;
-  z-index: 1;
+  cursor: pointer;
+}
+.more-icon-hidden {
+  display: none;
 }

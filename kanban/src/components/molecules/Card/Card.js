@@ -86,7 +86,7 @@ const Card = ({ title, cardId }) => {
       <div className={styles["title-more-icon"]}>
         <span className={styles.title}>{title}</span>
         <span onClick={handleMoreIcon}>
-          <MdMoreHoriz className={styles["more-icon"]} />
+          <MdMoreHoriz className={isMoreClicked ? styles["more-icon-hidden"] : styles["more-icon"]} />
         </span>
         {isMoreClicked && <div onClick={handleDeleteCard}><MdOutlineDelete className={styles["delete-icon"]} size={25} /></div>}
       </div>
