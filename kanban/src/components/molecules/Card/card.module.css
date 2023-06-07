@@ -28,6 +28,7 @@
   cursor: pointer;
   margin: 10px 5px;
   color: #fff;
+  display: flex;
   margin-left: 12px;
 }
 .title-more-icon {
@@ -36,6 +37,7 @@
   padding: 1rem;
 }
 .add-text {
+  margin-left: 0.5rem;
   color: #fdf9f9;
 }
 .title {

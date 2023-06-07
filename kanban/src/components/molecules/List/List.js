@@ -50,8 +50,6 @@ const List = () => {
     setIsAddList(true);
   };
 
-
-
   return (
     <div className={styles["inner-content"]} ref={innerContentRef}>
       {divisions.map((division) => (
