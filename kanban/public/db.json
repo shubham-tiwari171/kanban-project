@@ -8,12 +8,7 @@
           "id": "b7ef7e3d-12dc-4720-a487-58a019763481",
           "taskName": "asd",
           "taskDescription": "jhhjgjhgjgghjgjhhg",
-          "activitity": [
-            {
-              "status": "",
-              "timeStamp": ""
-            }
-          ]
+          "activitity": [{ "status": "", "timeStamp": "" }]
         },
         {
           "id": "5f964c7c-666f-464d-baef-59850809b27d",
@@ -78,26 +73,6 @@
     {
       "id": "e1694df0-deae-4d5e-a633-890a0bd13852",
       "title": "weqw",
-      "task": []
-    },
-    {
-      "id": "7013559d-b3d5-4a87-a364-ee15cccfaed6",
-      "title": "sda",
-      "task": []
-    },
-    {
-      "id": "7f46d4d1-f28a-4e69-9e2f-d4042c0f3f54",
-      "title": "shshkskada",
-      "task": []
-    },
-    {
-      "id": "0a0ee9fb-8caf-481d-86e4-ae126d216f72",
-      "title": "shubham",
-      "task": []
-    },
-    {
-      "id": "38ea12b6-9d39-428d-8dfd-381d2daca4ef",
-      "title": "asdadasdasdasda",
       "task": []
     }
   ]

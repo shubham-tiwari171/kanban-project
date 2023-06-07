@@ -113,7 +113,7 @@ textarea {
 .task-item {
   color: white;
   margin-bottom: 0.5rem;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   background-color: #414243;
   height: 2.5rem;
   width: 90%;
