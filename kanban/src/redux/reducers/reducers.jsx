@@ -4,6 +4,7 @@ const kanbanSlice = createSlice({
   name: "kanban",
   initialState: {
     tasks: [],
+    card: {},
   },
   reducers: {
     addTask(state, action) {
@@ -20,8 +21,12 @@ const kanbanSlice = createSlice({
         task.description = description;
       }
     },
+    setCardObject: (state, action) => {
+      state.card = action.payload;
+    },
   },
 });
 
-export const { addTask, removeTask, updateTask } = kanbanSlice.actions;
+export const { addTask, removeTask, updateTask, setCardObject } =
+  kanbanSlice.actions;
 export default kanbanSlice.reducer;

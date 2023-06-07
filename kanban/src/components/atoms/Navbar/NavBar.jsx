@@ -25,8 +25,8 @@ import {
   SunIcon,
 } from "@chakra-ui/icons";
 // import {HamburgerIcon, AddIcon, ExternalLinkIcon, RepeatIcon, EditIcon, IconButton } from "@chakra-ui/icons"
-import logo1 from '../../images/logo1.gif'
-import logo2 from '../../images/logoG.gif'
+import logo1 from "../../images/logo1.gif";
+import logo2 from "../../images/logoG.gif";
 const NavBar = () => {
   const [theme, setTheme] = useState("light");
   const [logo, setLogo] = useState(logo1);
@@ -38,11 +38,11 @@ const NavBar = () => {
       setTheme("light");
     }
   };
-  const handleMouseEnter=()=>{
-    setLogo(logo2)
-  }
-  const handleMouseLeave=()=>{
-    setLogo(logo1)
+  const handleMouseEnter = () => {
+    setLogo(logo2);
+  };
+  const handleMouseLeave = () => {
+    setLogo(logo1);
   };
   const CustomCard = React.forwardRef(({ children, ...rest }, ref) => (
     <Box p="1">
@@ -143,6 +143,14 @@ const NavBar = () => {
                 <MenuItem>Delete</MenuItem>
                 <MenuItem>Attend a Workshop</MenuItem>
               </MenuList>
+            </Menu>
+          </div>
+
+          <div id="menu-button" style={{ marginLeft: "1rem" }}>
+            <Menu id="menu-button">
+              <MenuButton id="menu-button" as={Button}>
+                Clear
+              </MenuButton>
             </Menu>
           </div>
         </div>

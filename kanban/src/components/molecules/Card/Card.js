@@ -7,151 +7,149 @@ import axios from "axios";
 import { MdDescription, MdOutlineDelete } from "react-icons/md";
 import styles from "./card.module.css";
 import { useNavigate } from "react-router";
-
+import { useDispatch } from 'react-redux';
+import { setCardObject } from "../../../redux/reducers/reducers"
 const Card = ({ title, cardId }) => {
-  const [isAddTitle, setIsAddTitle] = useState(false);
-  const [addTitle, setAddTitle] = useState("");
-  const [tasks, setTasks] = useState([]);
-  const [editedTaskName, setEditedTaskName] = useState('')
-  const [isMoreClicked, setIsMoreClicked] = useState(false)
-  const [cardDeleted, setCardDeleted] = useState(false);
-  const navigate = useNavigate();
-  useEffect(() => {
-    fetchTasks();
-  }, []);
+	const [isAddTitle, setIsAddTitle] = useState(false);
+	const [addTitle, setAddTitle] = useState("");
+	const [tasks, setTasks] = useState([]);
+	const [editedTaskName, setEditedTaskName] = useState('')
+	const [isMoreClicked, setIsMoreClicked] = useState(false)
+	const [cardDeleted, setCardDeleted] = useState(false);
+	const navigate = useNavigate();
+	const dispatch = useDispatch()
 
-  const fetchTasks = async () => {
-    try {
-      const response = await axios.get("http://localhost:4000/cards");
-      const tasksData = response.data;
-      setTasks(tasksData);
-    } catch (error) {
-      console.error("Error fetching tasks data:", error);
-    }
-  };
+	useEffect(() => {
+		fetchTasks();
+	}, []);
 
-  const handleAddUpdateTask = async () => {
-    if (addTitle.trim() !== "") {
-      const newTask = {
-        id: uuidv4(),
-        taskName: editedTaskName !== "" ? editedTaskName : addTitle,
-        taskDescription: 'jhhjgjhgjgghjgjhhg',
-      };
+	const fetchTasks = async () => {
+		try {
+			const response = await axios.get("http://localhost:4000/cards");
+			const tasksData = response.data;
+			setTasks(tasksData);
+		} catch (error) {
+			console.error("Error fetching tasks data:", error);
+		}
+	};
 
-      // Updating the particular tsak array
-      const updatedTasks = tasks.map((task) => {
-        if (task.id === cardId) {
-          return {
-            ...task,
-            task: [...task.task, newTask],
-          };
-        }
-        return task;
-      });
+	const handleAddUpdateTask = async () => {
+		if (addTitle.trim() !== "") {
+			const newTask = {
+				id: uuidv4(),
+				taskName: addTitle,
+				taskDescription: 'jhhjgjhgjgghjgjhhg',
+			};
+			const updatedTasks = tasks.map((task) => {
+				if (task.id === cardId) {
+					return {
+						...task,
+						task: [...task.task, newTask],
+					};
+				}
+				return task;
+			});
 
-      try {
-        // Find the index of the task object that has changed
-        const changedTaskIndex = updatedTasks.findIndex((task) => task.id === cardId);
+			try {
 
-        // Make a PUT request to update the specific task object on the server
-        await axios.put(`http://localhost:4000/cards/${cardId}`, updatedTasks[changedTaskIndex]);
+				const changedTaskIndex = updatedTasks.findIndex((task) => task.id === cardId);
+				await axios.put(`http://localhost:4000/cards/${cardId}`, updatedTasks[changedTaskIndex]);
+				setTasks((prevState) => {
+					const updatedState = [...prevState];
+					updatedState[changedTaskIndex] = updatedTasks[changedTaskIndex];
+					return updatedState;
+				});
+				setAddTitle("");
+				setIsAddTitle(false);
+			} catch (error) {
+				console.error("Error updating task data:", error);
+			}
+		}
+	};
 
-        // Update only the changed task object in the state
-        setTasks((prevState) => {
-          const updatedState = [...prevState];
-          updatedState[changedTaskIndex] = updatedTasks[changedTaskIndex];
-          return updatedState;
-        });
-        setAddTitle("");
-        setIsAddTitle(false);
-      } catch (error) {
-        console.error("Error updating task data:", error);
-      }
-    }
-  };
+	const filteredTasks = tasks.find((task) => task.id === cardId)?.task || [];
 
-  const filteredTasks = tasks.find((task) => task.id === cardId)?.task || [];
+	const handleRouteClick = (taskId) => {
+		let particularTaskObj = filteredTasks.find((task) => task.id === taskId);
+		let cardObject = tasks.find((card) => card.id === cardId);
+		dispatch(setCardObject(cardObject));
+		navigate(`/description/${taskId}`);
+	};
 
-  const handleRouteClick = (taskId) => {
-    let particularTaskObj = filteredTasks.find((task) => task.id === taskId);
-    navigate(`/description/${taskId}`);
-    console.log(particularTaskObj)
-  }
+	const handleMoreIcon = () => {
+		setIsMoreClicked(true)
+	}
 
-  const handleMoreIcon = () => {
-    setIsMoreClicked(true)
-  }
-
-  const handleDeleteCard = async () => {
-    try {
-      await axios.delete(`http://localhost:4000/cards/${cardId}`);
-      setTasks(prevTasks => [...prevTasks.filter(task => task.id !== cardId)]);
-      setCardDeleted(prevState => !prevState);
-    } catch (error) {
-      console.error("Error deleting card:", error);
-    }
-  };
+	const handleDeleteCard = async () => {
+		try {
+			await axios.delete(`http://localhost:4000/cards/${cardId}`);
+			setTasks(prevTasks => [...prevTasks.filter(task => task.id !== cardId)]);
+			setCardDeleted(prevState => !prevState);
+		} catch (error) {
+			console.error("Error deleting card:", error);
+		}
+	};
 
 
-  return (
-    <div className={styles["add-Card"]}>
-      <div className={styles["title-more-icon"]}>
-        <span className={styles.title}>{title}</span>
-        <span onClick={handleMoreIcon}>
-          <MdMoreHoriz className={isMoreClicked ? styles["more-icon-hidden"] : styles["more-icon"]} />
-        </span>
-        {isMoreClicked && <div onClick={handleDeleteCard}><MdOutlineDelete className={styles["delete-icon"]} size={25} /></div>}
-      </div>
-      <div className={styles["task-container"]}>
-        {filteredTasks.map((subTask) => (
-          <div key={subTask.id} className={styles["task-item"]}>
-            <span style={{ marginLeft: "1rem" }}>{subTask.taskName}</span>
-            {/* <span>{subTask.taskDescription}</span> */}
-            <span style={{ marginRight: "1rem" }}><MdDescription size={20} onClick={() => handleRouteClick(subTask.id)} /></span>
-          </div>
-        ))}
-      </div>
-      {isAddTitle && (
-        <div className={styles["add-title"]}>
-          <div>
-            <FloatingLabel controlId="floatingTextarea2">
-              <Form.Control
-                as="textarea"
-                placeholder="Enter a title for this card..."
-                style={{ minHeight: '300px', overflow: 'hidden' }}
-                className={styles["add-input"]}
-                value={editedTaskName != "" ? editedTaskName : addTitle}
-                onChange={(e) => setAddTitle(e.target.value)}
-              />
-            </FloatingLabel>
-          </div>
+	return (
+		<div className={styles["add-Card"]}>
+			<div className={styles["title-more-icon"]}>
+				<span className={styles.title}>{title}</span>
+				<span onClick={handleMoreIcon}>
+					<MdMoreHoriz className={isMoreClicked ? styles["more-icon-hidden"] : styles["more-icon"]} />
+				</span>
+				{isMoreClicked && <div onClick={handleDeleteCard}><MdOutlineDelete className={styles["delete-icon"]} size={25} /></div>}
+			</div>
+			<div className={styles["task-container"]}>
+				{filteredTasks.map((subTask) => (
+					<div key={subTask.id} className={styles["task-item"]}>
+						<span style={{ marginLeft: "1rem" }}>{subTask.taskName}</span>
+						{/* <span>{subTask.taskDescription}</span> */}
+						<span style={{ marginRight: "1rem" }}><MdDescription size={20} onClick={() => handleRouteClick(subTask.id)} /></span>
+					</div>
+				))}
+			</div>
+			{isAddTitle && (
+				<div className={styles["add-title"]}>
+					<div>
+						<FloatingLabel controlId="floatingTextarea2">
+							<Form.Control
+								as="textarea"
+								placeholder="Enter a title for this card..."
+								style={{ minHeight: '300px', overflow: 'hidden' }}
+								className={styles["add-input"]}
+								value={editedTaskName != "" ? editedTaskName : addTitle}
+								onChange={(e) => setAddTitle(e.target.value)}
+							/>
+						</FloatingLabel>
+					</div>
 
-          <div>
-            <button
-              className={styles["add-btn"]}
-              onClick={handleAddUpdateTask}
-            >
-              Add task
+					<div>
+						<button
+							className={styles["add-btn"]}
+							onClick={handleAddUpdateTask}
+						>
+							Add task
 
-            </button>
+						</button>
 
-            <span onClick={() => setIsAddTitle(false)}>
-              <MdClose size={25} className={styles["close-btn"]} />
-            </span>
-          </div>
-        </div>
-      )}
+						<span onClick={() => setIsAddTitle(false)}>
+							<MdClose size={25} className={styles["close-btn"]} />
+						</span>
+					</div>
+				</div>
+			)}
 
-      {!isAddTitle && (
-        <div onClick={() => setIsAddTitle(true)}>
-          <div className={styles["add-list"]}>
-            <MdAdd className={styles["add-icon"]} size={25} />
-            <span className={styles["add-text"]}>Add task</span>
-          </div>
-        </div>
-      )}
-    </div>
-  );
+			{!isAddTitle && (
+				<div onClick={() => setIsAddTitle(true)}>
+					<div className={styles["add-list"]}>
+						<MdAdd className={styles["add-icon"]} size={25} />
+						<span className={styles["add-text"]}>Add task</span>
+					</div>
+				</div>
+			)}
+		</div>
+	);
 };
 
 export default Card;

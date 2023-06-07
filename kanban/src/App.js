@@ -1,19 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NavBar from './components/atoms/Navbar/NavBar';
 import Card from './components/atoms/Card';
 import Page from './components/pages/Page';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const card = useSelector((state) => state.kanbanData.card);
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<div>Hello</div>}></Route>
-        <Route path="/description/:taskId" element={<div>{`Routed`}</div>}></Route>
-        <Route path='/page' element={<Page />}></Route>
+        <Route path="/" element={<div>Hello</div>} />
+        <Route
+          path="/description/:taskId"
+          element={<div>{card && console.log(card)}</div>}
+        />
+        <Route path="/page" element={<Page />} />
       </Routes>
-    </BrowserRouter >
+    </BrowserRouter>
   );
 }
 
