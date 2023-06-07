@@ -1,11 +1,12 @@
 import styles from "./Page.module.css";
 import { useState, useRef, useEffect } from "react";
 import List from "../molecules/List/List";
+import NavBar from "../atoms/Navbar/NavBar";
 const Page = () => {
   return (
     <>
       <div className={styles.header}>
-        <div style={{ width: "98%", backgroundColor: "azure" }}>Header</div>
+        <div style={{ width: "98%" }}><NavBar/></div>
       </div>
       <List />
     </>
