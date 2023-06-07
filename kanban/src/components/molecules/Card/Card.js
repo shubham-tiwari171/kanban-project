@@ -4,15 +4,16 @@ import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
-import { MdDescription } from "react-icons/md";
+import { MdDescription, MdOutlineDelete } from "react-icons/md";
 import styles from "./card.module.css";
 import { useNavigate } from "react-router";
+
 const Card = ({ title, cardId }) => {
   const [isAddTitle, setIsAddTitle] = useState(false);
   const [addTitle, setAddTitle] = useState("");
   const [tasks, setTasks] = useState([]);
   const [editedTaskName, setEditedTaskName] = useState('')
-  const [particularTaskId, setParticularTaskId] = useState(false)
+  const [isMoreClicked, setIsMoreClicked] = useState(false)
   const navigate = useNavigate();
   useEffect(() => {
     const fetchTasks = async () => {
@@ -74,14 +75,20 @@ const Card = ({ title, cardId }) => {
     navigate(`/description/${taskId}`);
     console.log(particularTaskObj)
   }
-
+  const handleMoreIcon = () => {
+    setIsMoreClicked(true)
+  }
+  const handleDeleteCard = () => {
+    // setIsMoreClicked(t)
+  }
   return (
     <div className={styles["add-Card"]}>
       <div className={styles["title-more-icon"]}>
         <span className={styles.title}>{title}</span>
-        <span>
+        <span onClick={handleMoreIcon}>
           <MdMoreHoriz className={styles["more-icon"]} />
         </span>
+        {isMoreClicked && <div onClick={handleDeleteCard}><MdOutlineDelete className={styles["delete-icon"]} size={25} /></div>}
       </div>
       <div className={styles["task-container"]}>
         {filteredTasks.map((subTask) => (
