@@ -14,19 +14,21 @@ const Card = ({ title, cardId }) => {
   const [tasks, setTasks] = useState([]);
   const [editedTaskName, setEditedTaskName] = useState('')
   const [isMoreClicked, setIsMoreClicked] = useState(false)
+  const [cardDeleted, setCardDeleted] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response = await axios.get("http://localhost:4000/cards");
-        const tasksData = response.data;
-        setTasks(tasksData);
-      } catch (error) {
-        console.error("Error fetching tasks data:", error);
-      }
-    };
     fetchTasks();
   }, []);
+
+  const fetchTasks = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/cards");
+      const tasksData = response.data;
+      setTasks(tasksData);
+    } catch (error) {
+      console.error("Error fetching tasks data:", error);
+    }
+  };
 
   const handleAddUpdateTask = async () => {
     if (addTitle.trim() !== "") {
@@ -75,12 +77,22 @@ const Card = ({ title, cardId }) => {
     navigate(`/description/${taskId}`);
     console.log(particularTaskObj)
   }
+
   const handleMoreIcon = () => {
     setIsMoreClicked(true)
   }
-  const handleDeleteCard = () => {
-    // setIsMoreClicked(t)
-  }
+
+  const handleDeleteCard = async () => {
+    try {
+      await axios.delete(`http://localhost:4000/cards/${cardId}`);
+      setTasks(prevTasks => [...prevTasks.filter(task => task.id !== cardId)]);
+      setCardDeleted(prevState => !prevState);
+    } catch (error) {
+      console.error("Error deleting card:", error);
+    }
+  };
+
+
   return (
     <div className={styles["add-Card"]}>
       <div className={styles["title-more-icon"]}>
@@ -138,8 +150,6 @@ const Card = ({ title, cardId }) => {
           </div>
         </div>
       )}
-
-
     </div>
   );
 };
