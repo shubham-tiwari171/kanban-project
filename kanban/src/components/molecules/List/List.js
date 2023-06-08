@@ -12,7 +12,7 @@ const List = () => {
   const [divisions, setDivisions] = useState([]);
   const [isBackgroundClicked, setIsBackgroundClicked] = useState(false);
   const [bgColor, setBgColor] = useState('');
-  
+
   const divRef1 = useRef(null);
   // const divRef2 = useRef(null);
   // const divRef3 = useRef(null);
@@ -33,25 +33,25 @@ const List = () => {
     setBgColor(color);
     localStorage.setItem("bgColor", color);
   };
-  
-  
-  
-  const innerContentRef = useRef(null);
-  
 
-  
-  
- 
+
+
+  const innerContentRef = useRef(null);
+
+
+
+
+
   useEffect(() => {
     innerContentRef.current.scrollLeft = innerContentRef.current.scrollWidth;
-   
-   
+
+
   }, [divisions]);
 
   useEffect(() => {
     getAllCards();
   }, []);
- 
+
 
   const getAllCards = async () => {
     try {
@@ -77,95 +77,95 @@ const List = () => {
     }
 
     const updatedDivisions = [...divisions, newCard];
-    if(title!=="")
-    setDivisions(updatedDivisions);
+    if (title !== "")
+      setDivisions(updatedDivisions);
     setTitle("");
     setIsAddList(true);
   };
 
   return (
     <>
-    
 
-    
-    <div className={styles["inner-content"]}  ref={innerContentRef} style={{background:bgColor}}>
-      
-    <div
-        className={styles['add-custom']}
-       
-        onClick={handleCustomization}
-      >
-        background
+
+
+      <div className={styles["inner-content"]} ref={innerContentRef} style={{ background: bgColor }}>
+
+        <div
+          className={styles['add-custom']}
+
+          onClick={handleCustomization}
+        >
+          background
+        </div>
+        {isBackgroundClicked && (
+          <div className={styles.menu}>
+            <input placeholder="enter url" />
+            <div className={styles['choose-image']}>
+
+            </div>
+            <div className={styles['choose-color']}>
+              <div ref={divRef1} onClick={handleClick} className={styles.color1}>
+                #443C68
+              </div>
+              <div ref={divRef1} onClick={handleClick} className={styles.color2}>
+                #E41655
+              </div>
+              <div ref={divRef1} onClick={handleClick} className={styles.color3}>
+                #A27B5C
+              </div>
+              <div ref={divRef1} onClick={handleClick} className={styles.color4}>
+                #C74B50
+              </div>
+              <div ref={divRef1} onClick={handleClick} className={styles.color5}>
+                #362222
+              </div>
+              <div ref={divRef1} onClick={handleClick} className={styles.color6}>
+                #323232
+              </div>
+            </div>
+
+          </div>
+        )}
+        {divisions.map((division) => (
+          <Card key={division.id} title={division.title} data={division} cardId={division.id} />
+        ))}
+
+        {isAddTitle ? (
+          <div className={styles["add-title"]}>
+            <div>
+              <input
+                placeholder="Enter list title..."
+                value={title}
+                className={styles["add-input"]}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
+            <div>
+              <button
+                className={styles["add-btn"]}
+                onClick={() => handleAddList()}
+              >
+                Add List
+              </button>{" "}
+              <span onClick={() => setIsAddTitle(!isAddTitle)}>
+                <MdOutlineClose size={25} className={styles["close-btn"]} />
+              </span>
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
+
+        <div onClick={() => setIsAddTitle(!isAddTitle)}>
+
+          <div className={styles["add-list"]}>
+            <MdAdd className={styles["add-icon"]} /> Add another list
+          </div>
+        </div>
       </div>
-      {isBackgroundClicked && (
-        <div className={styles.menu}>
-          <input placeholder="enter url" />
-          <div className={styles['choose-image']}>
-            
-            </div>
-          <div className={styles['choose-color']}>
-            <div ref={divRef1} onClick={handleClick} className={styles.color1}>
-            #443C68
-            </div>
-            <div ref={divRef1} onClick={handleClick} className={styles.color2}>
-            #E41655
-            </div>
-            <div ref={divRef1} onClick={handleClick} className={styles.color3}>
-            #A27B5C
-            </div>
-            <div ref={divRef1} onClick={handleClick} className={styles.color4}>
-              #C74B50
-            </div>
-            <div ref={divRef1} onClick={handleClick} className={styles.color5}>
-            #362222
-            </div>
-            <div ref={divRef1} onClick={handleClick} className={styles.color6}>
-            #323232
-            </div>
-          </div>
-          
-        </div>
-      )}
-      {divisions.map((division) => (
-        <Card key={division.id} title={division.title} data={division} cardId={division.id} />
-      ))}
-
-      {isAddTitle ? (
-        <div className={styles["add-title"]}>
-          <div>
-            <input
-              placeholder="Enter list title..."
-              value={title}
-              className={styles["add-input"]}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </div>
-          <div>
-            <button
-              className={styles["add-btn"]}
-              onClick={() => handleAddList()}
-            >
-              Add List
-            </button>{" "}
-            <span onClick={() => setIsAddTitle(!isAddTitle)}>
-              <MdOutlineClose size={25} className={styles["close-btn"]} />
-            </span>
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
-
-      <div onClick={() => setIsAddTitle(!isAddTitle)}>
-        
-        <div className={styles["add-list"]}>
-          <MdAdd className={styles["add-icon"]} /> Add another list
-        </div>
-      </div>
-    </div>
     </>
   );
-  
+
 };
 
 export default List;

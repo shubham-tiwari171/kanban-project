@@ -15,8 +15,6 @@
   display: flex;
   justify-content: center;
   background-color: rgb(42, 147, 165);
-  
-
 }
 
 .inner-content {
@@ -26,12 +24,10 @@
   display: flex;
   overflow-x: scroll;
   scroll-behavior: smooth scroll;
-  
 }
 
 .inner-content::-webkit-scrollbar {
   width: 12px;
-  
 }
 
 .inner-content::-webkit-scrollbar-thumb {
