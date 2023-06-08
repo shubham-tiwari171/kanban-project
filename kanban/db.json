@@ -1,15 +1,3 @@
 {
-  "cards": [
-    {
-      "id": "5265d5f1-ab14-4caa-a71e-f01fd4517204",
-      "title": "dfdfsfsd",
-      "task": [
-        {
-          "id": "9d3d2ae9-4b44-415c-81f2-f3f44f1f9d70",
-          "taskName": "sdfdfdsf",
-          "taskDescription": "jhhjgjhgjgghjgjhhg"
-        }
-      ]
-    }
-  ]
+  "cards": []
 }
