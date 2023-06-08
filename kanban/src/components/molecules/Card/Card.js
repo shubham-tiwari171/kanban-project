@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { setCardObject, deleteCard } from "../../../redux/reducers/reducers"
 import styles from "./card.module.css";
 import Templatelogo from "../../images/Templatelogo.svg";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const Card = ({ title, cardId }) => {
 	const [isAddTitle, setIsAddTitle] = useState(false);
@@ -90,6 +91,7 @@ const Card = ({ title, cardId }) => {
 		}
 	};
 
+	const handleDragEnd = (result) => { console.log(result) }
 	return (
 		!cardDeleted && (
 			<div className={styles["add-Card"]}>
@@ -100,16 +102,57 @@ const Card = ({ title, cardId }) => {
 					</span>
 					{isMoreClicked && <div onClick={handleDeleteCard}><MdOutlineDelete className={styles["delete-icon"]} size={25} /></div>}
 				</div>
-				<div className={styles["task-container"]}>
-					{filteredTasks.map((subTask) => (
-						<div key={subTask.id} className={styles["task-item"]}>
-							<span style={{ marginLeft: "1rem" }}>{subTask.taskName}</span>
-							<span style={{ marginRight: "1rem" }}>
-								<MdDescription size={20} onClick={() => handleRouteClick(subTask.id)} />
-							</span>
-						</div>
-					))}
-				</div>
+
+				<DragDropContext onDragEnd={handleDragEnd}>
+					<div className={styles["task-container"]}>
+						{filteredTasks.map((subTask) => (
+							<div key={subTask.id} className={styles["task-item"]}>
+								<span style={{ marginLeft: "1rem" }}>{subTask.taskName}</span>
+								<span style={{ marginRight: "1rem" }}>
+									<MdDescription size={20} onClick={() => handleRouteClick(subTask.id)} />
+								</span>
+							</div>
+						))}
+					</div>
+				</DragDropContext>
+
+				{/* 
+				<DragDropContext onDragEnd={handleDragEnd}>
+					<Droppable droppableId="card-droppable">
+						{(provided) => (
+							<div
+								{...provided.droppableProps}
+								ref={provided.innerRef}
+								className={styles["task-container"]}
+							>
+								{filteredTasks.map((subTask, index) => (
+									// Draggable component goes here
+									<Draggable
+										key={subTask.id}
+										draggableId={subTask.id}
+										index={index}
+									>
+										{(provided) => (
+											<div
+												{...provided.draggableProps}
+												{...provided.dragHandleProps}
+												ref={provided.innerRef}
+												className={styles["task-item"]}
+											>
+												<span style={{ marginLeft: "1rem" }} className={`${styles["task-name"]}`}>{subTask.taskName}</span>
+												<span style={{ marginRight: "1rem" }}>
+													<MdDescription size={20} onClick={() => handleRouteClick(subTask.id)} />
+												</span>
+											</div>
+										)}
+									</Draggable>
+								))}
+								{provided.placeholder}
+							</div>
+						)}
+					</Droppable>
+				</DragDropContext> */}
+
 				{isAddTitle && (
 					<div className={styles["add-title"]}>
 						<div>
