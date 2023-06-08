@@ -108,8 +108,11 @@ const Card = ({ title, cardId }) => {
 						{filteredTasks.map((subTask) => (
 							<div key={subTask.id} className={styles["task-item"]}>
 								<span style={{ marginLeft: "1rem" }} className={`${styles["task-name"]}`}>{subTask.taskName}</span>
-								<span style={{ marginRight: "1rem" }}>
+								<span style={{ marginRight: "0.3rem" }}>
 									<MdDescription size={20} onClick={() => handleRouteClick(subTask.id)} />
+								</span>
+                <span style={{ marginRight: "0.5rem" }}>
+									<MdOutlineDelete size={20} onClick={() => handleRouteClick(subTask.id)} />
 								</span>
 							</div>
 						))}
