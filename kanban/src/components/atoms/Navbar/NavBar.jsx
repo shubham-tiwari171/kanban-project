@@ -145,6 +145,14 @@ const NavBar = () => {
               </MenuList>
             </Menu>
           </div>
+
+          <div id="menu-button" style={{ marginLeft: "1rem" }}>
+            <Menu id="menu-button">
+              <MenuButton id="menu-button" as={Button}>
+                Clear
+              </MenuButton>
+            </Menu>
+          </div>
         </div>
       </div>
       <div className="Left-Nav">

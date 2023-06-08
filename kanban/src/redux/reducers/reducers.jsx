@@ -4,13 +4,11 @@ const kanbanSlice = createSlice({
   name: "kanban",
   initialState: {
     tasks: [],
+    card: {},
   },
   reducers: {
     addTask(state, action) {
       state.tasks.push(action.payload);
-    },
-    removeTask(state, action) {
-      state.tasks = state.tasks.filter((task) => task.id !== action.payload);
     },
     updateTask(state, action) {
       const { id, title, description } = action.payload;
@@ -20,8 +18,16 @@ const kanbanSlice = createSlice({
         task.description = description;
       }
     },
+    deleteCard: (state, action) => {
+      const cardId = action.payload;
+      return state.filter((card) => card.id !== cardId);
+    },
+    setCardObject: (state, action) => {
+      state.card = action.payload;
+    },
   },
 });
 
-export const { addTask, removeTask, updateTask } = kanbanSlice.actions;
+export const { addTask, deleteCard, updateTask, setCardObject } =
+  kanbanSlice.actions;
 export default kanbanSlice.reducer;
