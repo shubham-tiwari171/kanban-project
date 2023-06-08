@@ -92,6 +92,25 @@ const Card = ({ title, cardId }) => {
 	};
 
 	const handleDragEnd = (result) => { console.log(result) }
+
+	const handleTaskDelete = async (taskId) => {
+		try {
+			const card = tasks.find((card) => card.id === cardId);
+			if (card) {
+				const taskIndex = card.task.findIndex((task) => task.id === taskId);
+				if (taskIndex !== -1) {
+					delete card.task[taskIndex];
+					card.task = card.task.filter(Boolean)
+					await axios.put(`http://localhost:4000/cards/${cardId}`, card);
+					setTasks((prevTasks) => [...prevTasks]);
+				}
+			}
+		} catch (error) {
+			console.error("Error deleting task:", error);
+		}
+	};
+
+
 	return (
 		!cardDeleted && (
 			<div className={styles["add-Card"]}>
@@ -111,8 +130,8 @@ const Card = ({ title, cardId }) => {
 								<span style={{ marginRight: "0.3rem" }}>
 									<MdDescription size={20} onClick={() => handleRouteClick(subTask.id)} />
 								</span>
-                <span style={{ marginRight: "0.5rem" }}>
-									<MdOutlineDelete size={20} onClick={() => handleRouteClick(subTask.id)} />
+								<span style={{ marginRight: "0.5rem" }}>
+									<MdOutlineDelete size={20} onClick={() => handleTaskDelete(subTask.id)} />
 								</span>
 							</div>
 						))}
