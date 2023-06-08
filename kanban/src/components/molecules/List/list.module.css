@@ -2,7 +2,10 @@
   background-color: #f9f7f6;
   color: #2b2a2a;
   /* width: fit-content; Set the desired width here */
+  display: flex;
   position: relative;
+  height: 3rem;
+  align-items: center;
   top: 2rem;
 
   border-radius: 10px;
@@ -14,7 +17,8 @@
   width: 270px;
 }
 .add-icon {
-  fill: #fff;
+  position: absolute;
+  color: black;
   font-weight: 400;
 }
 .row {

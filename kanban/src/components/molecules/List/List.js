@@ -157,9 +157,9 @@ const List = () => {
         )}
 
         <div onClick={() => setIsAddTitle(!isAddTitle)}>
-
           <div className={styles["add-list"]}>
-            <MdAdd className={styles["add-icon"]} /> Add another list
+            <MdAdd size={25} className={styles["add-icon"]} />
+            <span style={{ marginLeft: "2rem" }}>Add another list</span >
           </div>
         </div>
       </div>
