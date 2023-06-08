@@ -6,6 +6,8 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { MdModeEdit } from "react-icons/md";
 import styles from "./card.module.css";
+import Templatelogo from '../../images/Templatelogo.svg'
+
 
 const Card = ({ title, cardId }) => {
   const [isAddTitle, setIsAddTitle] = useState(false);
@@ -115,7 +117,9 @@ const Card = ({ title, cardId }) => {
           <div className={styles["add-list"]}>
             <MdAdd className={styles["add-icon"]} size={25} />
             <span className={styles["add-text"]}>Add task</span>
-          </div>
+            
+          </div> 
+          <span><img src={Templatelogo} /></span>
         </div>
       )}
 

@@ -1,3 +1,5 @@
+
+  
 .add-Card {
   width: 15%;
   height: fit-content; /* Set the desired height here */
@@ -5,19 +7,22 @@
   flex-shrink: 0;
   border-radius: 10px;
   margin-left: 5px;
-  min-height: 130px !important;
+ 
+  margin-top: 2rem;
 }
 
 /* will see later */
 .add-list:hover {
-  background-color: white;
-  opacity: 0.1;
-  color: #579dff;
+  background-color: #a6c5e229;
+  opacity: 0.5;
+  color: #9fadbc;
 }
-.add-list:hover .add-text,
-.add-list:hover .add-icon {
+.title {
+  color: #DFE1E6;
   font-weight: bold;
 }
+
+
 .add-list {
   width: 80%;
   position: relative;
@@ -42,6 +47,9 @@
 }
 .title {
   color: white;
+}
+svg{
+  color: #dee4ea;
 }
 
 .add-icon {
@@ -107,7 +115,8 @@ textarea {
 }
 .close-btn {
   position: relative;
-  top: 10px;
+  bottom:40px;
+  left: 110px;
   border-radius: 5px;
 }
 .task-item {

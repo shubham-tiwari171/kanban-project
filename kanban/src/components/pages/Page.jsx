@@ -6,7 +6,7 @@ const Page = () => {
   return (
     <>
       <div className={styles.header}>
-        <div style={{ width: "98%" }}><NavBar/></div>
+        <div style={{ width: "100%" }}><NavBar/></div>
       </div>
       <List />
     </>
