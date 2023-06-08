@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { useDispatch } from 'react-redux';
-import { setCardObject, deleteCard } from "../../../redux/reducers/reducers"
+import { setCardObject } from "../../../redux/reducers/reducers"
 import styles from "./card.module.css";
 import Templatelogo from "../../images/Templatelogo.svg";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
@@ -25,6 +25,7 @@ const Card = ({ title, cardId }) => {
 		fetchTasks();
 	}, [cardId]);
 
+	//This function is used to call the json file for fetch the data
 	const fetchTasks = async () => {
 		try {
 			const response = await axios.get("http://localhost:4000/cards");
@@ -35,12 +36,13 @@ const Card = ({ title, cardId }) => {
 		}
 	};
 
+	// This function is used addUpdate the task to particula card task list
 	const handleAddUpdateTask = async () => {
 		if (addTitle.trim() !== "") {
 			const newTask = {
 				id: uuidv4(),
 				taskName: addTitle,
-				taskDescription: 'jhhjgjhgjgghjgjhhg',
+				taskDescription: 'This decription is updated in the description page',
 			};
 			const updatedTasks = tasks.map((task) => {
 				if (task.id === cardId) {
@@ -68,8 +70,10 @@ const Card = ({ title, cardId }) => {
 		}
 	};
 
+	//This is used to bind the task to the particular card 
 	const filteredTasks = tasks.find((task) => task.id === cardId)?.task || [];
 
+	// This function is used to route to particular padge on the basis of the id 
 	const handleRouteClick = (taskId) => {
 		let particularTaskObj = filteredTasks.find((task) => task.id === taskId);
 		let cardObject = tasks.find((card) => card.id === cardId);
@@ -81,6 +85,7 @@ const Card = ({ title, cardId }) => {
 		setIsMoreClicked(true)
 	}
 
+	// This method is used delete the particular card
 	const handleDeleteCard = async () => {
 		try {
 			await axios.delete(`http://localhost:4000/cards/${cardId}`);
@@ -93,6 +98,7 @@ const Card = ({ title, cardId }) => {
 
 	const handleDragEnd = (result) => { console.log(result) }
 
+	// This method is used delete the particular task of particular card 
 	const handleTaskDelete = async (taskId) => {
 		try {
 			const card = tasks.find((card) => card.id === cardId);
@@ -102,14 +108,14 @@ const Card = ({ title, cardId }) => {
 					delete card.task[taskIndex];
 					card.task = card.task.filter(Boolean)
 					await axios.put(`http://localhost:4000/cards/${cardId}`, card);
-					setTasks((prevTasks) => [...prevTasks]);
+					// setTasks((prevTasks) => [...prevTasks]);
+					fetchTasks();
 				}
 			}
 		} catch (error) {
 			console.error("Error deleting task:", error);
 		}
 	};
-
 
 	return (
 		!cardDeleted && (
@@ -127,6 +133,9 @@ const Card = ({ title, cardId }) => {
 						{filteredTasks.map((subTask) => (
 							<div key={subTask.id} className={styles["task-item"]}>
 								<span style={{ marginLeft: "1rem" }} className={`${styles["task-name"]}`}>{subTask.taskName}</span>
+								<span style={{ marginRight: "0.3rem" }}>
+									<MdDescription size={20} onClick={() => handleRouteClick(subTask.id)} />
+								</span>
 								<span style={{ marginRight: "0.3rem" }}>
 									<MdDescription size={20} onClick={() => handleRouteClick(subTask.id)} />
 								</span>
