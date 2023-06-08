@@ -1,0 +1,55 @@
+.Desc-page{
+    background:black;
+    width:100%;
+    height: 200vh;
+    overflow-y: scroll;
+}
+.Desc-container{
+    padding:30px;
+    width:50%;
+    border:1px solid white;
+    margin:100px auto;
+    color:white;
+}
+.Task-div{
+    display:flex;
+    align-items: center;
+}
+.Task-div h3{
+    margin:10px;
+}
+.Notification p{
+   font-size: 15px;
+}
+.Notification-icon{
+    background: rgb(46, 46, 46);
+    width:90px;
+    padding:4px;
+    border-radius: 5px;
+}
+.Desc-box input{
+    width:100%;
+    border:1px solid rgb(34, 34, 34);
+    background: none;
+    border-radius: 10px;
+    padding:10px;
+}
+.Editor-button{
+    width:20px;
+    display:flex;
+    align-items: center;
+    justify-content:end;
+    margin-top: 110px;
+    margin-left: 600px;
+}
+.Editor button{
+    margin-top: 20px;
+    padding:5px;
+    margin:10px;
+    background: rgb(30, 30, 30);
+    border:1px solid gray;
+    border-radius: 10px;
+}
+.activity-editor{
+    border:2px solid red;
+}
