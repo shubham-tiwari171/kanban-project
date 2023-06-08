@@ -82,7 +82,7 @@ const Card = ({ title, cardId }) => {
 	const handleDeleteCard = async () => {
 		try {
 			await axios.delete(`http://localhost:4000/cards/${cardId}`);
-			setTasks(prevTasks => prevTasks.filter(task => task.id !== cardId));
+			setTasks(prevTasks => prevTasks.filter(card => card.id !== cardId));
 			setCardDeleted(true);
 		} catch (error) {
 			console.error("Error deleting card:", error);
