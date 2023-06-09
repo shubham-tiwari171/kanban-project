@@ -177,7 +177,7 @@ const List = () => {
       <div className={styles["inner-content"]} ref={innerContentRef} style={
         isbgColorApplied
           ? { background: bgColor }
-          : { background: `url(${bgImage})`, backgroundRepeat: 'no-repeat' }
+          : { background: `url(${bgImage})`}
       }>
 
 
