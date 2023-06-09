@@ -13,10 +13,10 @@
   width: 100%;
   position: fixed;
 }
-.task-board:hover{
+.task-board:hover {
   cursor: pointer;
 }
-.bgColse{
+.bgColse {
   position: absolute;
   top: 20px;
   right: 0;
@@ -29,84 +29,71 @@
   color: #fdfcfc;
   margin: 0 2rem;
   gap: 1.8rem;
-  
+
   opacity: 6;
 
   position: relative;
   z-index: 9;
 }
-.board-name{
+.board-name {
   font-weight: bold;
   font-size: 1.2rem;
-
 }
-.right-wrapper{
+.right-wrapper {
   display: flex;
   color: #fff;
   margin: 0 2rem;
   gap: 3rem;
-  
-
 }
-.board{
+.board {
   background-color: #f5f5f5;
   padding: 0.3rem 1.3rem;
   border-radius: 5px;
   color: black;
   font-weight: bold;
   font-weight: bold;
-
 }
- 
 
-.down-icon{
+.down-icon {
   position: relative;
   right: 30px;
 }
-.powerUp-icon{
+.powerUp-icon {
   position: absolute;
   top: 20px;
   right: 620px;
 }
-.automation-icon{
+.automation-icon {
   position: absolute;
   top: 20px;
   right: 495px;
-  
 }
-.filter-icon{
+.filter-icon {
   position: absolute;
   top: 18px;
   right: 370px;
 }
-.work-space{
+.work-space {
   position: relative;
   top: 5px;
   left: 5px;
   font-size: 14px;
-
 }
-.star-icon{
+.star-icon {
   position: relative;
   top: 10px;
-
-
 }
-.people-icon{
+.people-icon {
   position: absolute;
   left: 215px;
   top: 10px;
-
 }
-.change-bg{
-
-  background-color: #fff ;
+.change-bg {
+  background-color: #fff;
   color: black;
   padding: 3px 10px;
   border-radius: 10px;
   font-weight: bold;
-
-
 }
 
 /* List  */
@@ -204,9 +191,8 @@
   gap: 0.7rem;
   overflow-x: scroll;
   scroll-behavior: smooth scroll;
-  background-repeat: no-repeat!important;
-  background-size: 100% 100%!important;
- 
+  background-repeat: no-repeat !important;
+  background-size: 100% 100% !important;
 }
 
 .inner-content::-webkit-scrollbar {
@@ -222,7 +208,6 @@
 
 /* Customization */
 
-
 .menu {
   background-color: #323940;
   width: 330px;
@@ -233,83 +218,71 @@
   top: 56px;
   z-index: 6;
 }
-.menu-heading{
-
- 
+.menu-heading {
   padding: 0.6rem 0.5rem;
   text-align: center;
-font-size: 1.2rem;
-color: white;
- border-bottom: 1px solid grey;
-
+  font-size: 1.2rem;
+  color: white;
+  border-bottom: 1px solid grey;
 }
-.select-text{
+.select-text {
   padding: 0.3rem 0.3rem;
   text-align: center;
-font-size: 1rem;
-color: white;
- border-bottom: 1px solid grey;
- border-top: 1px solid grey;
- margin: 5px;
-
+  font-size: 1rem;
+  color: white;
+  border-bottom: 1px solid grey;
+  border-top: 1px solid grey;
+  margin: 5px;
 }
 
-.input-url{
+.input-url {
   margin: 0.5rem 0.5rem;
-  padding:0.2rem 0.5rem;
+  padding: 0.2rem 0.5rem;
   width: 70%;
-  
+
   color: #fff;
-  background-color: #22272B;
+  background-color: #22272b;
   outline-color: #2066cf;
   font-size: 1rem;
   border-radius: 5px;
-
 }
-.apply-btn{
-  background-color: #22272B;
+.apply-btn {
+  background-color: #22272b;
   padding: 3px 0.5rem;
   border-radius: 8px;
   color: #6e6d6d;
   font-weight: bold;
-
 }
 .choose-color {
   display: flex;
   flex-wrap: wrap;
-  
-  height: fit-content;
+  height: 200px;
   margin-top: 10px;
   overflow-y: scroll;
-  
 }
 .choose-color::-webkit-scrollbar {
   display: none;
 }
 
 .color1 {
-
   width: 50px;
   height: 50px;
   margin: 5px;
   border-radius: 10px;
 }
-.color1:hover{
+.color1:hover {
   cursor: pointer;
-
 }
-
 
 .choose-image {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   gap: 0.5rem;
-  margin:0.7rem ;
+  margin: 0.7rem;
   cursor: pointer;
   overflow-y: scroll;
-  height: 500px;
-
+  height: 300px;
 }
 .choose-image::-webkit-scrollbar {
   display: none;
@@ -320,5 +293,4 @@ color: white;
 .image-wrapper {
   display: flex;
   width: 130px;
-
 }
