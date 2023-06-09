@@ -1,7 +1,7 @@
 .Navbar {
   display: flex;
   justify-content: space-between;
-  padding: 0 20px 2px 20px;
+  padding: 0 20px 0 20px;
   align-items: center;
   background: #1d2125;
 }
@@ -37,15 +37,17 @@
   background: #22a8f6;
   color: rgb(12, 12, 12);
 }
-.search-input {
+.search-input input{
   border-radius: 10px;
   text-align: center;
-  width: 200px;
+  padding:10px;
+  width: 220px;
+  border-radius: 10px;
 }
 .search-input > .search-icon {
   width: 40px;
   height: 30px;
-  margin: 0;
+  margin:10px;
   padding: 0;
 }
 .search-input svg {
