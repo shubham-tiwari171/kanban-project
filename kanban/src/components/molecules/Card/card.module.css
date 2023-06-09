@@ -6,7 +6,7 @@
   border-radius: 10px;
   margin-left: 5px;
 
-  margin-top: 2rem;
+  margin-top: 5rem;
 }
 
 /* will see later */
@@ -115,6 +115,10 @@ textarea {
   bottom: 40px;
   left: 110px;
   border-radius: 5px;
+  
+}
+.close-btn:hover{
+ cursor: pointer;
 }
 .task-item {
   color: white;

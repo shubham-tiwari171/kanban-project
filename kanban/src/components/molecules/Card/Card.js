@@ -130,6 +130,39 @@ const Card = ({ title, cardId }) => {
 		}
 	};
 
+	// const handleDragEnd = async (result) => {
+	// 	if (!result.destination) return;
+
+	// 	const { source, destination } = result;
+	// 	const updatedTasks = [...tasks];
+
+	// 	const sourceTaskIndex = updatedTasks.findIndex((task) => task.id === cardId);
+	// 	const sourceTask = updatedTasks[sourceTaskIndex];
+	// 	const updatedActivity = sourceTask.task[source.index].activity || [];
+	// 	updatedActivity.push({ status: `Moved from position ${source.index} to position ${destination.index}`, timeStamp: new Date().toLocaleString() });
+
+	// 	const updatedSourceTask = {
+	// 		...sourceTask,
+	// 		task: [
+	// 			...sourceTask.task.slice(0, source.index),
+	// 			{
+	// 				...sourceTask.task[source.index],
+	// 				activity: updatedActivity
+	// 			},
+	// 			...sourceTask.task.slice(source.index + 1)
+	// 		]
+	// 	};
+
+	// 	updatedTasks.splice(sourceTaskIndex, 1, updatedSourceTask);
+
+	// 	try {
+	// 		await axios.put(`http://localhost:4000/cards/${cardId}`, updatedTasks[sourceTaskIndex]);
+	// 		setTasks(updatedTasks);
+	// 	} catch (error) {
+	// 		console.error("Error updating task order:", error);
+	// 	}
+	// };
+
 
 	// This method is used to delete a particular task of a particular card
 	const handleTaskDelete = async (taskId) => {
@@ -199,6 +232,46 @@ const Card = ({ title, cardId }) => {
 						</Droppable>
 					</div>
 				</DragDropContext>
+
+				{/* <DragDropContext onDragEnd={handleDragEnd}>
+					<div className={styles["task-container"]}>
+						<Droppable droppableId="card-droppable">
+							{(provided) => (
+								<div
+									{...provided.droppableProps}
+									ref={provided.innerRef}
+									className={styles["task-container"]}
+								>
+									{filteredTasks.map((subTask, index) => (
+										<Draggable
+											key={subTask.id}
+											draggableId={subTask.id}
+											index={index}
+										>
+											{(provided) => (
+												<div
+													{...provided.draggableProps}
+													{...provided.dragHandleProps}
+													ref={provided.innerRef}
+													className={styles["task-item"]}
+												>
+													<span style={{ marginLeft: "1rem" }} className={`${styles["task-name"]}`}>{subTask.taskName}</span>
+													<span style={{ marginRight: "0.3rem" }}>
+														<MdDescription size={20} onClick={() => handleRouteClick(subTask.id)} />
+													</span>
+													<span style={{ marginRight: "0.3rem" }}>
+														<MdOutlineDelete size={20} onClick={() => handleTaskDelete(subTask.id)} />
+													</span>
+												</div>
+											)}
+										</Draggable>
+									))}
+									{provided.placeholder}
+								</div>
+							)}
+						</Droppable>
+					</div>
+				</DragDropContext> */}
 
 				{isAddTitle && (
 					<div className={styles["add-title"]}>
