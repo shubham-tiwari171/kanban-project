@@ -139,7 +139,7 @@
   padding: 0.5rem;
   z-index: 2;
   border-radius: 10px;
-  max-height: 100px; /* added the desired maximum height here */
+  max-height: 120px; /* added the desired maximum height here */
   /* overflow-y: auto; */
 }
 
@@ -147,7 +147,7 @@
   padding: 5px;
   outline: none;
   border-radius: 3px;
-  width: 100%; /* add the desired width here */
+  width: 15rem;
   background-color: #22272b;
   border: 2px solid #579dff;
   color: #fff;
@@ -163,7 +163,7 @@
   padding: 8px;
   font-size: 14px;
   border-radius: 5px;
-
+  margin-left: 0.5rem;
   background-color: #579dff;
 }
 .close-btn {
