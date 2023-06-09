@@ -25,7 +25,7 @@ const Card = ({ title, cardId }) => {
 		fetchTasks();
 	}, [cardId]);
 
-	//This function is used to call the json file for fetch the data
+	//This function is used to call the json file for fetching the data
 	const fetchTasks = async () => {
 		try {
 			const response = await axios.get("http://localhost:4000/cards");
@@ -36,13 +36,14 @@ const Card = ({ title, cardId }) => {
 		}
 	};
 
-	// This function is used addUpdate the task to particula card task list
+	// This function is used to add/update the task to the particular card task list
 	const handleAddUpdateTask = async () => {
 		if (addTitle.trim() !== "") {
 			const newTask = {
 				id: uuidv4(),
 				taskName: addTitle,
-				taskDescription: 'This decription is updated in the description page',
+				taskDescription: 'This description is updated in the description page',
+				activity: [{ status: "", timeStamp: new Date().toLocaleString() }]
 			};
 			const updatedTasks = tasks.map((task) => {
 				if (task.id === cardId) {
@@ -70,10 +71,10 @@ const Card = ({ title, cardId }) => {
 		}
 	};
 
-	//This is used to bind the task to the particular card 
+	//This is used to bind the task to the particular card
 	const filteredTasks = tasks.find((task) => task.id === cardId)?.task || [];
 
-	// This function is used to route to particular padge on the basis of the id 
+	// This function is used to route to a particular page based on the task id
 	const handleRouteClick = (taskId) => {
 		let particularTaskObj = filteredTasks.find((task) => task.id === taskId);
 		let cardObject = tasks.find((card) => card.id === cardId);
@@ -85,7 +86,7 @@ const Card = ({ title, cardId }) => {
 		setIsMoreClicked(true)
 	}
 
-	// This method is used delete the particular card
+	// This method is used to delete the particular card
 	const handleDeleteCard = async () => {
 		try {
 			await axios.delete(`http://localhost:4000/cards/${cardId}`);
@@ -96,9 +97,41 @@ const Card = ({ title, cardId }) => {
 		}
 	};
 
-	const handleDragEnd = (result) => { console.log(result) }
+	const handleDragEnd = async (result) => {
+		if (!result.destination) return;
 
-	// This method is used delete the particular task of particular card 
+		const { source, destination } = result;
+		const updatedTasks = [...tasks];
+
+		const sourceTaskIndex = updatedTasks.findIndex((task) => task.id === cardId);
+		const sourceTask = updatedTasks[sourceTaskIndex];
+		const updatedActivity = sourceTask.task[source.index].activity || [];
+		updatedActivity.push({ status: `Moved from position ${source.index} to position ${destination.index}`, timeStamp: new Date().toLocaleString() });
+
+		const updatedSourceTask = {
+			...sourceTask,
+			task: [
+				...sourceTask.task.slice(0, source.index),
+				{
+					...sourceTask.task[source.index],
+					activity: updatedActivity
+				},
+				...sourceTask.task.slice(source.index + 1)
+			]
+		};
+
+		updatedTasks.splice(sourceTaskIndex, 1, updatedSourceTask);
+
+		try {
+			await axios.put(`http://localhost:4000/cards/${cardId}`, updatedTasks[sourceTaskIndex]);
+			setTasks(updatedTasks);
+		} catch (error) {
+			console.error("Error updating task order:", error);
+		}
+	};
+
+
+	// This method is used to delete a particular task of a particular card
 	const handleTaskDelete = async (taskId) => {
 		try {
 			const card = tasks.find((card) => card.id === cardId);
@@ -108,7 +141,6 @@ const Card = ({ title, cardId }) => {
 					delete card.task[taskIndex];
 					card.task = card.task.filter(Boolean)
 					await axios.put(`http://localhost:4000/cards/${cardId}`, card);
-					// setTasks((prevTasks) => [...prevTasks]);
 					fetchTasks();
 				}
 			}
@@ -130,59 +162,43 @@ const Card = ({ title, cardId }) => {
 
 				<DragDropContext onDragEnd={handleDragEnd}>
 					<div className={styles["task-container"]}>
-						{filteredTasks.map((subTask) => (
-							<div key={subTask.id} className={styles["task-item"]}>
-								<span style={{ marginLeft: "1rem" }} className={`${styles["task-name"]}`}>{subTask.taskName}</span>
-								<span style={{ marginRight: "0.3rem" }}>
-									<MdDescription size={20} onClick={() => handleRouteClick(subTask.id)} />
-								</span>
-								<span style={{ marginRight: "0.3rem" }}>
-									<MdDescription size={20} onClick={() => handleRouteClick(subTask.id)} />
-								</span>
-								<span style={{ marginRight: "0.5rem" }}>
-									<MdOutlineDelete size={20} onClick={() => handleTaskDelete(subTask.id)} />
-								</span>
-							</div>
-						))}
+						<Droppable droppableId="card-droppable">
+							{(provided) => (
+								<div
+									{...provided.droppableProps}
+									ref={provided.innerRef}
+									className={styles["task-container"]}
+								>
+									{filteredTasks.map((subTask, index) => (
+										<Draggable
+											key={subTask.id}
+											draggableId={subTask.id}
+											index={index}
+										>
+											{(provided) => (
+												<div
+													{...provided.draggableProps}
+													{...provided.dragHandleProps}
+													ref={provided.innerRef}
+													className={styles["task-item"]}
+												>
+													<span style={{ marginLeft: "1rem" }} className={`${styles["task-name"]}`}>{subTask.taskName}</span>
+													<span style={{ marginRight: "0.3rem" }}>
+														<MdDescription size={20} onClick={() => handleRouteClick(subTask.id)} />
+													</span>
+													<span style={{ marginRight: "0.3rem" }}>
+														<MdOutlineDelete size={20} onClick={() => handleTaskDelete(subTask.id)} />
+													</span>
+												</div>
+											)}
+										</Draggable>
+									))}
+									{provided.placeholder}
+								</div>
+							)}
+						</Droppable>
 					</div>
 				</DragDropContext>
-
-				{/* 
-				<DragDropContext onDragEnd={handleDragEnd}>
-					<Droppable droppableId="card-droppable">
-						{(provided) => (
-							<div
-								{...provided.droppableProps}
-								ref={provided.innerRef}
-								className={styles["task-container"]}
-							>
-								{filteredTasks.map((subTask, index) => (
-									// Draggable component goes here
-									<Draggable
-										key={subTask.id}
-										draggableId={subTask.id}
-										index={index}
-									>
-										{(provided) => (
-											<div
-												{...provided.draggableProps}
-												{...provided.dragHandleProps}
-												ref={provided.innerRef}
-												className={styles["task-item"]}
-											>
-												<span style={{ marginLeft: "1rem" }} className={`${styles["task-name"]}`}>{subTask.taskName}</span>
-												<span style={{ marginRight: "1rem" }}>
-													<MdDescription size={20} onClick={() => handleRouteClick(subTask.id)} />
-												</span>
-											</div>
-										)}
-									</Draggable>
-								))}
-								{provided.placeholder}
-							</div>
-						)}
-					</Droppable>
-				</DragDropContext> */}
 
 				{isAddTitle && (
 					<div className={styles["add-title"]}>
@@ -219,6 +235,7 @@ const Card = ({ title, cardId }) => {
 						</div>
 					</div>
 				)}
+
 			</div>
 		)
 	);

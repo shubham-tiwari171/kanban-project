@@ -127,9 +127,10 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-left: 0.8rem;
 }
 .task-container {
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   justify-content: center;
   align-items: center;

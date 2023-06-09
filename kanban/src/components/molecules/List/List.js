@@ -4,6 +4,7 @@ import Card from "../Card/Card";
 import { useState, useRef, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const List = () => {
   const [isAddTitle, setIsAddTitle] = useState(false);
@@ -11,14 +12,9 @@ const List = () => {
   const [isAddList, setIsAddList] = useState(false);
   const [divisions, setDivisions] = useState([]);
   const [isBackgroundClicked, setIsBackgroundClicked] = useState(false);
-  const [bgColor, setBgColor] = useState('');
+  const [bgColor, setBgColor] = useState("");
 
   const divRef1 = useRef(null);
-  // const divRef2 = useRef(null);
-  // const divRef3 = useRef(null);
-  // const divRef4 = useRef(null);
-  // const divRef5 = useRef(null);
-  // const divRef6 = useRef(null);
 
   useEffect(() => {
     setBgColor(localStorage.getItem("bgColor"));
@@ -34,18 +30,10 @@ const List = () => {
     localStorage.setItem("bgColor", color);
   };
 
-
-
   const innerContentRef = useRef(null);
-
-
-
-
 
   useEffect(() => {
     innerContentRef.current.scrollLeft = innerContentRef.current.scrollWidth;
-
-
   }, [divisions]);
 
   useEffect(() => {
@@ -65,7 +53,7 @@ const List = () => {
     const newCard = {
       id: uuidv4(),
       title: title,
-      task: []
+      task: [],
     };
 
     try {
@@ -76,34 +64,74 @@ const List = () => {
     }
 
     const updatedDivisions = [...divisions, newCard];
-    if (title !== "")
-      setDivisions(updatedDivisions);
+    if (title !== "") setDivisions(updatedDivisions);
     setTitle("");
     setIsAddList(true);
+  };
+
+  const handleDragEnd = (result) => {
+    const { source, destination } = result;
+
+    if (!destination) return;
+
+    if (
+      source.droppableId === destination.droppableId &&
+      source.index === destination.index
+    )
+      return;
+
+    const sourceCardId = source.droppableId;
+    const destinationCardId = destination.droppableId;
+    const sourceIndex = source.index;
+    const destinationIndex = destination.index;
+
+    const updatedDivisions = divisions.map((card) => {
+      if (card.id === sourceCardId) {
+        const taskList = Array.from(card.task);
+        const [movedTask] = taskList.splice(sourceIndex, 1);
+
+        const updatedSourceCard = {
+          ...card,
+          task: taskList,
+        };
+
+        const destinationCard = divisions.find(
+          (c) => c.id === destinationCardId
+        );
+
+        if (destinationCard) {
+          const destinationTaskList = Array.from(destinationCard.task);
+          destinationTaskList.splice(destinationIndex, 0, movedTask);
+
+          const updatedDestinationCard = {
+            ...destinationCard,
+            task: destinationTaskList,
+          };
+
+          return updatedDestinationCard;
+        }
+
+        return updatedSourceCard;
+      }
+
+      return card;
+    });
+
+    setDivisions(updatedDivisions);
   };
 
 
   return (
     <>
-
-
-
       <div className={styles["inner-content"]} ref={innerContentRef} style={{ background: bgColor }}>
-
-        <div
-          className={styles['add-custom']}
-
-          onClick={handleCustomization}
-        >
+        <div className={styles["add-custom"]} onClick={handleCustomization}>
           background
         </div>
         {isBackgroundClicked && (
           <div className={styles.menu}>
             <input placeholder="enter url" />
-            <div className={styles['choose-image']}>
-
-            </div>
-            <div className={styles['choose-color']}>
+            <div className={styles["choose-image"]}></div>
+            <div className={styles["choose-color"]}>
               <div ref={divRef1} onClick={handleClick} className={styles.color1}>
                 #443C68
               </div>
@@ -123,13 +151,13 @@ const List = () => {
                 #323232
               </div>
             </div>
-
           </div>
         )}
-        {divisions.map((division) => (
-          <Card key={division.id} title={division.title} data={division} cardId={division.id} />
-        ))}
-
+        <DragDropContext onDragEnd={handleDragEnd}>
+          {divisions.map((division, index) => (
+            <Card key={division.id} title={division.title} data={division} cardId={division.id} index={index} />
+          ))}
+        </DragDropContext>
         {isAddTitle ? (
           <div className={styles["add-title"]}>
             <div>
@@ -141,10 +169,7 @@ const List = () => {
               />
             </div>
             <div>
-              <button
-                className={styles["add-btn"]}
-                onClick={() => handleAddList()}
-              >
+              <button className={styles["add-btn"]} onClick={handleAddList}>
                 Add List
               </button>{" "}
               <span onClick={() => setIsAddTitle(!isAddTitle)}>
@@ -155,17 +180,15 @@ const List = () => {
         ) : (
           <></>
         )}
-
-        <div onClick={() => setIsAddTitle(!isAddTitle)}>
+        <div onClick={() => setIsAddTitle(true)}>
           <div className={styles["add-list"]}>
             <MdAdd size={25} className={styles["add-icon"]} />
-            <span style={{ marginLeft: "2rem" }}>Add another list</span >
+            <span style={{ marginLeft: "2rem" }}>Add another list</span>
           </div>
         </div>
       </div>
     </>
   );
-
 };
 
 export default List;
