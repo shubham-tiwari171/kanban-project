@@ -112,56 +112,7 @@ const List = () => {
     setIsAddList(true);
   };
 
-  const handleDragEnd = (result) => {
-    const { source, destination } = result;
 
-    if (!destination) return;
-
-    if (
-      source.droppableId === destination.droppableId &&
-      source.index === destination.index
-    )
-      return;
-
-    const sourceCardId = source.droppableId;
-    const destinationCardId = destination.droppableId;
-    const sourceIndex = source.index;
-    const destinationIndex = destination.index;
-
-    const updatedDivisions = divisions.map((card) => {
-      if (card.id === sourceCardId) {
-        const taskList = Array.from(card.task);
-        const [movedTask] = taskList.splice(sourceIndex, 1);
-
-        const updatedSourceCard = {
-          ...card,
-          task: taskList,
-        };
-
-        const destinationCard = divisions.find(
-          (c) => c.id === destinationCardId
-        );
-
-        if (destinationCard) {
-          const destinationTaskList = Array.from(destinationCard.task);
-          destinationTaskList.splice(destinationIndex, 0, movedTask);
-
-          const updatedDestinationCard = {
-            ...destinationCard,
-            task: destinationTaskList,
-          };
-
-          return updatedDestinationCard;
-        }
-
-        return updatedSourceCard;
-      }
-
-      return card;
-    });
-
-    setDivisions(updatedDivisions);
-  };
 
   return (
     <>
@@ -262,17 +213,17 @@ const List = () => {
             </div>
           </div>
         )}
-        <DragDropContext onDragEnd={handleDragEnd}>
-          {divisions.map((division, index) => (
-            <Card
-              key={division.id}
-              title={division.title}
-              data={division}
-              cardId={division.id}
-              index={index}
-            />
-          ))}
-        </DragDropContext>
+
+        {divisions.map((division, index) => (
+          <Card
+            key={division.id}
+            title={division.title}
+            data={division}
+            cardId={division.id}
+            index={index}
+          />
+        ))}
+
         {isAddTitle ? (
           <div className={styles["add-title"]}>
             <div>

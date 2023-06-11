@@ -3,49 +3,12 @@
     {
       "id": "b2cfdda1-cf37-4e95-ab3e-7a43994c1cb4",
       "title": "todo",
-      "task": [
-        {
-          "id": "93fadd93-3810-4dce-a9f8-f87fed177307",
-          "taskName": "nistha",
-          "taskDescription": "",
-          "activity": []
-        },
-        {
-          "id": "21c14a71-0985-493a-b562-23df20e62d66",
-          "taskName": "shubham ",
-          "taskDescription": "",
-          "activity": [
-            {
-              "status": "Moved from position 0 to position 1",
-              "timeStamp": "6/11/2023, 2:01:30 AM"
-            },
-            {
-              "status": "Moved from position 1 to position 0",
-              "timeStamp": "6/11/2023, 2:02:04 AM"
-            },
-            {
-              "status": "Moved from position 0 to position 1",
-              "timeStamp": "6/11/2023, 2:14:38 AM"
-            },
-            {
-              "status": "Moved from position 1 to position 1",
-              "timeStamp": "6/11/2023, 2:14:53 AM"
-            }
-          ]
-        }
-      ]
+      "task": []
     },
     {
       "id": "3b23d862-70e7-4b81-aef6-a00b1866cd01",
       "title": "in progress",
-      "task": [
-        {
-          "id": "0944ac84-1f56-4535-a8ea-72eefb41a948",
-          "taskName": "Asas",
-          "taskDescription": "",
-          "activity": []
-        }
-      ]
+      "task": []
     }
   ]
 }
