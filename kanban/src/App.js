@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Page />} />
         <Route
-          path="/description/:taskId"
+          path="/description/:taskId/:taskName/"
           element={<Desc />}
         />
       </Routes>

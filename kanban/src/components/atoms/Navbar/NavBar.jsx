@@ -51,7 +51,7 @@ const NavBar = () => {
       </Tag>
     </Box>
   ));
-
+  const handledeleteAllCards = () => {};
   return (
     <div className="Navbar">
       <div className="Right-Nav">
@@ -148,7 +148,11 @@ const NavBar = () => {
 
           <div id="menu-button" style={{ marginLeft: "1rem" }}>
             <Menu id="menu-button">
-              <MenuButton id="menu-button" as={Button}>
+              <MenuButton
+                id="menu-button"
+                as={Button}
+                onClick={handledeleteAllCards}
+              >
                 Clear
               </MenuButton>
             </Menu>

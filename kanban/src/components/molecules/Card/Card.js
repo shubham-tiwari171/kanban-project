@@ -39,9 +39,9 @@ const Card = ({ title, cardId }) => {
 		if (addTitle.trim() !== "") {
 			const newTask = {
 				id: uuidv4(),
-				taskName: addTitle,
-				taskDescription: 'This description is updated in the description page',
-				activity: [{ status: "", timeStamp: new Date().toLocaleString() }]
+				taskName: addTitle.charAt(0).toUpperCase() + addTitle.slice(1).trim(),
+				taskDescription: '',
+				activity: []
 			};
 			const updatedTasks = tasks.map((task) => {
 				if (task.id === cardId) {
@@ -74,10 +74,10 @@ const Card = ({ title, cardId }) => {
 
 	// This function is used to route to a particular page based on the task id
 	const handleRouteClick = (taskId) => {
-		// let particularTaskObj = filteredTasks.find((task) => task.id === taskId);
+		let particularTaskObj = filteredTasks.find((task) => task.id === taskId);
 		let cardObject = tasks.find((card) => card.id === cardId);
 		dispatch(setCardObject(cardObject));
-		navigate(`/description/${taskId}`);
+		navigate(`/description/${taskId}/${particularTaskObj.taskName}`);
 	};
 
 	const handleMoreIcon = () => {
@@ -103,30 +103,41 @@ const Card = ({ title, cardId }) => {
 
 		const sourceTaskIndex = updatedTasks.findIndex((task) => task.id === cardId);
 		const sourceTask = updatedTasks[sourceTaskIndex];
-		const updatedActivity = sourceTask.task[source.index].activity || [];
-		updatedActivity.push({ status: `Moved from position ${source.index} to position ${destination.index}`, timeStamp: new Date().toLocaleString() });
+		const updatedTaskList = Array.from(sourceTask.task);
+
+		const [draggedTask] = updatedTaskList.splice(source.index, 1);
+		updatedTaskList.splice(destination.index, 0, draggedTask);
 
 		const updatedSourceTask = {
 			...sourceTask,
-			task: [
-				...sourceTask.task.slice(0, source.index),
-				{
-					...sourceTask.task[source.index],
-					activity: updatedActivity
-				},
-				...sourceTask.task.slice(source.index + 1)
-			]
+			task: updatedTaskList.map((task, index) => {
+				if (task.id === draggedTask.id) {
+					return {
+						...task,
+						activity: [
+							...task.activity,
+							{
+								status: `Moved from position ${source.index} to position ${destination.index}`,
+								timeStamp: new Date().toLocaleString(),
+							},
+						],
+					};
+				}
+				return task;
+			}),
 		};
 
 		updatedTasks.splice(sourceTaskIndex, 1, updatedSourceTask);
 
 		try {
-			await axios.put(`http://localhost:4000/cards/${cardId}`, updatedTasks[sourceTaskIndex]);
+			await axios.put(`http://localhost:4000/cards/${cardId}`, updatedSourceTask);
 			setTasks(updatedTasks);
 		} catch (error) {
 			console.error("Error updating task order:", error);
 		}
 	};
+
+
 
 	// const handleDragEnd = async (result) => {
 	// 	if (!result.destination) return;
