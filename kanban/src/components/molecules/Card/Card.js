@@ -8,12 +8,14 @@ import { useNavigate } from "react-router";
 import { useDispatch } from 'react-redux';
 import { setCardObject } from "../../../redux/reducers/reducers"
 import styles from "./card.module.css";
+import Templatelogo from "../../images/Templatelogo.svg";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const Card = ({ title, cardId }) => {
 	const [isAddTitle, setIsAddTitle] = useState(false);
 	const [addTitle, setAddTitle] = useState("");
 	const [tasks, setTasks] = useState([]);
+	const [editedTaskName, setEditedTaskName] = useState('')
 	const [isMoreClicked, setIsMoreClicked] = useState(false)
 	const [cardDeleted, setCardDeleted] = useState(false);
 	const navigate = useNavigate();
@@ -204,7 +206,7 @@ const Card = ({ title, cardId }) => {
 
 				<DragDropContext onDragEnd={handleDragEnd}>
 					<div className={styles["task-container"]}>
-						<Droppable droppableId={cardId}>
+						<Droppable droppableId="card-droppable">
 							{(provided) => (
 								<div
 									{...provided.droppableProps}
@@ -242,6 +244,45 @@ const Card = ({ title, cardId }) => {
 					</div>
 				</DragDropContext>
 
+				{/* <DragDropContext onDragEnd={handleDragEnd}>
+					<div className={styles["task-container"]}>
+						<Droppable droppableId="card-droppable">
+							{(provided) => (
+								<div
+									{...provided.droppableProps}
+									ref={provided.innerRef}
+									className={styles["task-container"]}
+								>
+									{filteredTasks.map((subTask, index) => (
+										<Draggable
+											key={subTask.id}
+											draggableId={subTask.id}
+											index={index}
+										>
+											{(provided) => (
+												<div
+													{...provided.draggableProps}
+													{...provided.dragHandleProps}
+													ref={provided.innerRef}
+													className={styles["task-item"]}
+												>
+													<span style={{ marginLeft: "1rem" }} className={`${styles["task-name"]}`}>{subTask.taskName}</span>
+													<span style={{ marginRight: "0.3rem" }}>
+														<MdDescription size={20} onClick={() => handleRouteClick(subTask.id)} />
+													</span>
+													<span style={{ marginRight: "0.3rem" }}>
+														<MdOutlineDelete size={20} onClick={() => handleTaskDelete(subTask.id)} />
+													</span>
+												</div>
+											)}
+										</Draggable>
+									))}
+									{provided.placeholder}
+								</div>
+							)}
+						</Droppable>
+					</div>
+				</DragDropContext> */}
 
 				{isAddTitle && (
 					<div className={styles["add-title"]}>
@@ -252,7 +293,7 @@ const Card = ({ title, cardId }) => {
 									placeholder="Enter a title for this card..."
 									style={{ minHeight: '300px', overflow: 'hidden' }}
 									className={styles["add-input"]}
-									value={addTitle}
+									value={editedTaskName !== "" ? editedTaskName : addTitle}
 									onChange={(e) => setAddTitle(e.target.value)}
 								/>
 							</FloatingLabel>

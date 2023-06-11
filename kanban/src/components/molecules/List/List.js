@@ -69,7 +69,7 @@ const List = () => {
   const handleSubmitUrl = () => {
     if (inputUrl !== "") {
       setBgImage(inputUrl);
-      setBgColor("");
+      setIsBgColorApplied(false)
       localStorage.setItem("bgImage", inputUrl);
       setInputUrl("");
     }
@@ -80,7 +80,7 @@ const List = () => {
     setBgImage(ImageUrl[index].url);
 
     localStorage.setItem("bgImage", ImageUrl[index].url);
-    console.log(colors);
+    
   };
 
   const getAllCards = async () => {

@@ -258,7 +258,7 @@
   display: flex;
   flex-wrap: wrap;
   height: 200px;
-  margin-top: 10px;
+  margin-top: 2rem;
   overflow-y: scroll;
 }
 .choose-color::-webkit-scrollbar {
@@ -283,15 +283,18 @@
   margin: 0.7rem;
   cursor: pointer;
   overflow-y: scroll;
-  height: 300px;
+  height: 400px;
 }
 .choose-image::-webkit-scrollbar {
   display: none;
 }
 .image {
   border-radius: 10px;
+  ;
 }
 .image-wrapper {
   display: flex;
   width: 130px;
+
+
 }
