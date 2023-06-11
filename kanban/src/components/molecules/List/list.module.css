@@ -131,8 +131,7 @@
   position: relative;
   bottom: 50px;
   flex-shrink: 0;
-  /* width: 14.5%; */
-  width: 16%;
+  width: 14.7%;
   top: 5rem;
   left: 5px;
   background-color: black;
@@ -140,6 +139,7 @@
   padding: 0.5rem;
   z-index: 2;
   border-radius: 10px;
+  margin-right: 10px;
   max-height: 120px; /* added the desired maximum height here */
   /* overflow-y: auto; */
 }
