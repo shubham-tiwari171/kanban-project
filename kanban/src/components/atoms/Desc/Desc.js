@@ -10,7 +10,7 @@ import {
   RepeatClockIcon,
   CloseIcon,
 } from "@chakra-ui/icons";
-import TextEditor from "../TextEditor";
+import TextEditor from "../../atoms/TextEditor/TextEditor";
 import axios from "axios";
 import { Avatar, Tooltip, Wrap, WrapItem } from "@chakra-ui/react";
 const Desc = () => {
@@ -148,9 +148,9 @@ const Desc = () => {
                           />
                         </WrapItem>
                       </Wrap>
-                      {activity.status?
-                      <p>{activity.status}</p>:
-                      <p>Harshit Sachan created this card</p>
+                      {activity.status ?
+                        <p>{activity.status}</p> :
+                        <p>Harshit Sachan created this card</p>
                       }
                     </div>
                     <p className="time-stamp">{activity.timeStamp}</p>
