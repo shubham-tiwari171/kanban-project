@@ -25,8 +25,8 @@ import {
   SunIcon,
 } from "@chakra-ui/icons";
 // import {HamburgerIcon, AddIcon, ExternalLinkIcon, RepeatIcon, EditIcon, IconButton } from "@chakra-ui/icons"
-import logo1 from "../../images/logo1.gif";
-import logo2 from "../../images/logoG.gif";
+import logo1 from "../../../images/logo1.gif";
+import logo2 from "../../../images/logoG.gif";
 const NavBar = () => {
   const [theme, setTheme] = useState("light");
   const [logo, setLogo] = useState(logo1);
