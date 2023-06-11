@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 import { useDispatch } from 'react-redux';
 import { setCardObject } from "../../../redux/reducers/reducers"
 import styles from "./card.module.css";
-import Templatelogo from "../../images/Templatelogo.svg";
+
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const Card = ({ title, cardId }) => {
