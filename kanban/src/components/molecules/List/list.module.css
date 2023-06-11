@@ -131,7 +131,7 @@
   position: relative;
   bottom: 50px;
   flex-shrink: 0;
-  width: 14.7%;
+  width: 17.7%;
   top: 5rem;
   left: 5px;
   background-color: black;
@@ -290,11 +290,8 @@
 }
 .image {
   border-radius: 10px;
-  ;
 }
 .image-wrapper {
   display: flex;
   width: 130px;
-
-
 }

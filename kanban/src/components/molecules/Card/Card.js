@@ -208,7 +208,7 @@ const Card = ({ title, cardId }) => {
 					</div>
 				</DragDropContext>
 
-				
+
 
 				{isAddTitle && (
 					<div className={styles["add-title"]}>
