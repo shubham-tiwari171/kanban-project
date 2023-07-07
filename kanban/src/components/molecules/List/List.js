@@ -85,7 +85,7 @@ const List = () => {
 
   const getAllCards = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/cards");
+      const response = await axios.get("https://kanban-server-xg5a.onrender.com/cards");
       setDivisions(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -100,7 +100,7 @@ const List = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:4000/cards", newCard);
+      const response = await axios.post("https://kanban-server-xg5a.onrender.com/cards", newCard);
       console.log("Data written to JSON file:", response.data);
     } catch (error) {
       console.error("Error writing to JSON file:", error);
@@ -171,7 +171,7 @@ const List = () => {
         {isBackgroundClicked && (
           <div className={styles.menu}>
             <div className={styles["menu-heading"]}>
-              Change background{" "}
+              Change background
               <span
                 className={styles.bgColse}
                 onClick={() => setIsBackgroundClicked(!isBackgroundClicked)}

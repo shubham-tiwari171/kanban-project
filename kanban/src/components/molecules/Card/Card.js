@@ -28,7 +28,7 @@ const Card = ({ title, cardId }) => {
 	//This function is used to call the json file for fetching the data
 	const fetchTasks = async () => {
 		try {
-			const response = await axios.get("http://localhost:4000/cards");
+			const response = await axios.get("https://kanban-server-xg5a.onrender.com/cards");
 			const tasksData = response.data;
 			setTasks(tasksData);
 		} catch (error) {
@@ -57,7 +57,7 @@ const Card = ({ title, cardId }) => {
 
 			try {
 				const changedTaskIndex = updatedTasks.findIndex((task) => task.id === cardId);
-				await axios.put(`http://localhost:4000/cards/${cardId}`, updatedTasks[changedTaskIndex]);
+				await axios.put(`https://kanban-server-xg5a.onrender.com/cards/${cardId}`, updatedTasks[changedTaskIndex]);
 				setTasks((prevState) => {
 					const updatedState = [...prevState];
 					updatedState[changedTaskIndex] = updatedTasks[changedTaskIndex];
@@ -89,7 +89,7 @@ const Card = ({ title, cardId }) => {
 	// This method is used to delete the particular card
 	const handleDeleteCard = async () => {
 		try {
-			await axios.delete(`http://localhost:4000/cards/${cardId}`);
+			await axios.delete(`https://kanban-server-xg5a.onrender.com/cards/${cardId}`);
 			setTasks(prevTasks => prevTasks.filter(card => card.id !== cardId));
 			setCardDeleted(true);
 		} catch (error) {
@@ -132,7 +132,7 @@ const Card = ({ title, cardId }) => {
 		updatedTasks.splice(sourceTaskIndex, 1, updatedSourceTask);
 
 		try {
-			await axios.put(`http://localhost:4000/cards/${cardId}`, updatedSourceTask);
+			await axios.put(`https://kanban-server-xg5a.onrender.com/cards/${cardId}`, updatedSourceTask);
 			setTasks(updatedTasks);
 		} catch (error) {
 			console.error("Error updating task order:", error);
@@ -148,7 +148,7 @@ const Card = ({ title, cardId }) => {
 				if (taskIndex !== -1) {
 					delete card.task[taskIndex];
 					card.task = card.task.filter(Boolean)
-					await axios.put(`http://localhost:4000/cards/${cardId}`, card);
+					await axios.put(`https://kanban-server-xg5a.onrender.com/cards/${cardId}`, card);
 					fetchTasks();
 				}
 			}

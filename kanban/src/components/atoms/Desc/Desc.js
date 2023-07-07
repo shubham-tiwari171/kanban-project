@@ -43,7 +43,7 @@ const Desc = () => {
   const updateTask = async () => {
     let data = editCardData();
     await axios
-      .put(`http://localhost:4000/cards/${card.id}`, data)
+      .put(`https://kanban-server-xg5a.onrender.com/cards/${card.id}`, data)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
